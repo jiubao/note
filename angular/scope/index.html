@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>angular-parse</title>
+</head>
+<body>
+<div id="diagram">
+$parse->Lexer:
+Lexer->$parse:lexer
+$parse->Parser:lexer
+Parser->AST:lexer
+AST->Parser:ast
+Parser->ASTInterpreter:ast
+Parser->ASTCompiler:ast
+ASTCompiler->Parser:astCompiler
+Parser->$parse:parser
+$parse->Parser:parser.parse(text)
+Parser->$parse:fn
+</div>
+
+
+<script src="../../lib/raphael-min.js"></script>
+<script src="../../lib/underscore-min.js"></script>
+<script src="../../lib/jquery-2.1.4.min.js"></script>
+<script src="../../lib/sequence-diagram-min.js"></script>
+
+<script type="text/javascript">
+$("#diagram").sequenceDiagram({theme: 'hand'});
+
+</script>
+</body>
+</html>
