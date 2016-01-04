@@ -12,7 +12,23 @@
 <script src="../../lib/sequence-diagram-min.js"></script>
 
 <script type="text/javascript">
-  var all = "lexer->ast:";
+  var all1 = "text->AST:text\n\
+  AST->Lexer:text\n\
+  Lexer->AST:tokens\n\
+  ASTCompiler";
+
+  var all = "$parse->Lexer:\n\
+  Lexer->$parse:lexer\n\
+  $parse->Parser:lexer\n\
+  Parser->AST:lexer\n\
+  AST->Parser:ast\n\
+  Parser->ASTInterpreter:ast\n\
+  Parser->ASTCompiler:ast\n\
+  ASTCompiler->Parser:astCompiler\n\
+  Parser->$parse:parser\n\
+  $parse->Parser:parser.parse(text)\n\
+  Parser->$parse:fn";
+
   var diagram = Diagram.parse(all);
   diagram.drawSVG("diagram", {theme: 'hand'});
 </script>
