@@ -4,28 +4,55 @@
   <title>angular-parse</title>
 </head>
 <body>
-<div id="diagram">
-$parse->Lexer:
-Lexer->$parse:lexer
-$parse->Parser:lexer
-Parser->AST:lexer
-AST->Parser:ast
-Parser->ASTInterpreter:ast
-Parser->ASTCompiler:ast
-ASTCompiler->Parser:astCompiler
-Parser->$parse:parser
-$parse->Parser:parser.parse(text)
-Parser->$parse:fn
+$digest
+<div id="digest">
 </div>
 
+<!--
+<div id="div1">
+st=>start: Start|past:>http://www.google.com[blank]
+e=>end: End|future:>http://www.google.com
+op1=>operation: My Operation|past
+op2=>operation: Stuff|current
+sub1=>subroutine: My Subroutine|invalid
+cond=>condition: Yes
+or No?|approved:>http://www.google.com
+c2=>condition: Good idea|rejected
+io=>inputoutput: catch something...|future
+
+st->op1(right)->cond
+cond(yes, right)->c2
+cond(no)->sub1(left)->op1
+c2(yes)->io->e
+c2(no)->op2->e
+</div>
+-->
 
 <script src="../../lib/raphael-min.js"></script>
-<script src="../../lib/underscore-min.js"></script>
-<script src="../../lib/jquery-2.1.4.min.js"></script>
-<script src="../../lib/sequence-diagram-min.js"></script>
+<script src="../../lib/flowchart-latest.js"></script>
 
 <script type="text/javascript">
-$("#diagram").sequenceDiagram({theme: 'hand'});
+var diagram = flowchart.parse("st=>start: Start|past:>http://www.google.com[blank]\n\
+e=>end: End|future:>http://www.google.com\n\
+op1=>operation: My Operation|past\n\
+op2=>operation: Stuff|current\n\
+sub1=>subroutine: My Subroutine|invalid\n\
+cond=>condition: Yes\n\
+or No?|approved:>http://www.google.com\n\
+c2=>condition: Good idea|rejected\n\
+io=>inputoutput: catch something...|future\n\
+st->op1(right)->cond\n\
+cond(yes, right)->c2\n\
+cond(no)->sub1(left)->op1\n\
+c2(yes)->io->e\n\
+c2(no)->op2->e");
+
+diagram.drawSVG('digest');
+
+// var txt = document.getElementById('div1').innerHTML;
+// var diagram1 = flowchart.parse(txt);
+// diagram1.drawSVG('div1');
+
 
 </script>
 </body>
