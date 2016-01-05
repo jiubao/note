@@ -1,64 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>angular-parse</title>
+  <title>angular scope</title>
 </head>
 <body>
+
+<h1>Thinging in Angular Scope</h1>
+
+<h2>Two trees</h2>
+
+<ol>
+<li><h3>prototypal inheritance tree</h3></li>
+<li><h3>operating tree</h3></li>
+</ol>
+event tree<br/>
+
+<div id="eventTree"></div>
+
+$new
+$watch
+$on
+$emit
+$broadcast
 $digest
-<div id="digest">
-</div>
-
-<!--
-<div id="div1">
-st=>start: Start|past:>http://www.google.com[blank]
-e=>end: End|future:>http://www.google.com
-op1=>operation: My Operation|past
-op2=>operation: Stuff|current
-sub1=>subroutine: My Subroutine|invalid
-cond=>condition: Yes
-or No?|approved:>http://www.google.com
-c2=>condition: Good idea|rejected
-io=>inputoutput: catch something...|future
-
-st->op1(right)->cond
-cond(yes, right)->c2
-cond(no)->sub1(left)->op1
-c2(yes)->io->e
-c2(no)->op2->e
-</div>
--->
+<div id="digest"></div>
 
 <script src="../../lib/raphael-min.js"></script>
 <script src="../../lib/flowchart-latest.js"></script>
 
 <script type="text/javascript">
-var diagram = flowchart.parse("\
+var eventTree = flowchart.parse("\
 st=>start: Start\n\
-e=>end: End\n\
-op1=>operation: My Operation|past\n\
-op2=>operation: Stuff|current\n\
-sub1=>subroutine: My Subroutine|invalid\n\
-cond=>condition: Yes\n\
-or No?|approved:>http://www.google.com\n\
-c2=>condition: Good idea|rejected\n\
-io=>inputoutput: catch something...|future\n\
+op0=>operation: 0\n\
+op1=>operation: 111\n\
+op2=>operation: 222\n\
+op3=>operation: 333\n\
+op4=>operation: 444\n\
 \
-st->op1(right)->cond\n\
-cond(yes, right)->c2\n\
-cond(no)->sub1(left)->op1\n\
-c2(yes)->io->e\n\
-c2(no)->op2->e\
+op0->op1\n\
+op1->op2\n\
+op1(right)->op3\n\
+op3->op1\n\
 ");
 
-diagram.drawSVG('digest');
+eventTree.drawSVG('eventTree');
 
 // var txt = document.getElementById('div1').innerHTML;
 // var diagram1 = flowchart.parse(txt);
 // diagram1.drawSVG('div1');
 
 
-// st=>start: Start|past:>http://www.google.com[blank]\n\
-// e=>end: End|future:>http://www.google.com\n\
+// st=>start: Start\n\
+// e=>end: End\n\
 // op1=>operation: My Operation|past\n\
 // op2=>operation: Stuff|current\n\
 // sub1=>subroutine: My Subroutine|invalid\n\
@@ -66,6 +59,7 @@ diagram.drawSVG('digest');
 // or No?|approved:>http://www.google.com\n\
 // c2=>condition: Good idea|rejected\n\
 // io=>inputoutput: catch something...|future\n\
+// \
 // st->op1(right)->cond\n\
 // cond(yes, right)->c2\n\
 // cond(no)->sub1(left)->op1\n\
