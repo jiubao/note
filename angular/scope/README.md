@@ -1,23 +1,20 @@
-scope - angular
-===============
+scope
+=====
 
-two trees
----------
+prototypal inheritance tree
+---------------------------
+* `__proto__`
+* properties reference
 
-
-### prototypal inheritance tree
-* __proto__
-
-properties reference
-
-### operating tree
+operating tree
+--------------
 * $parent
 * $prevSibling
 * $nextSibling
 * $childHead
 * $childTail
 
-traversal tree
+** traversal tree **
 
 * digest
 * event
@@ -30,4 +27,4 @@ digest
 
 event
 -----
-isolate scope is in operating tree, events will be triggerred for emit/broadcast
+* isolate scope is in operating tree, events will be triggerred for emit/broadcast
