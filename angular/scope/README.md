@@ -3,19 +3,23 @@ scope
 
 prototypal inheritance tree
 ---------------------------
+**define**
 * `__proto__`
+
+**function**
 * properties reference
 
 operating tree
 --------------
+**define**
 * $parent
 * $prevSibling
 * $nextSibling
 * $childHead
 * $childTail
 
-** traversal tree **
-
+**function**
+* traversal tree
 * digest
 * event
   * emit
