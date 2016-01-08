@@ -11,39 +11,93 @@
 
 <ol>
 <li><h3>prototypal inheritance tree</h3></li>
-<li><h3>operating tree</h3></li>
+<li><h3>operating tree (event tree)</h3></li>
 </ol>
-event tree<br/>
 
-<div id="eventTree"></div>
+<br/>
 
+<h2>$rootScope.$digest()</h2>
+<div id="digest"></div>
+
+coming
 $new
 $watch
 $on
 $emit
 $broadcast
 $digest
-<div id="digest"></div>
+
+<div id="chartCodes" style="display:none;">
+  <textarea id="digestCode">
+st=>start: Start
+e=>end: End
+haswatcher=>condition: watch length
+(while)
+<!-- exeExp=>operation: value=watch.get(scope) -->
+equalLast=>condition: watch value
+== last
+exeFn=>operation: watch.fn(value)
+setDirty=>operation: dirty=false
+decWatchLen=>operation: watcher.length--
+nextNode=>operation: next node
+hasNode=>condition: next node
+(while)
+ttl=>condition: > ttl(10)
+and dirty
+isDirty=>condition: dirty?
+(while)
+ttlReached=>inputoutput: ttl reached
+
+st->haswatcher
+haswatcher(yes, right)->equalLast
+equalLast(yes, right)->exeFn(right)->haswatcher
+equalLast(no)->setDirty(right)->haswatcher
+haswatcher(no)->hasNode
+hasNode(yes, right)->haswatcher
+hasNode(no)->ttl
+ttl(yes)->ttlReached
+ttl(no)->isDirty(yes, right)->haswatcher
+isDirty(no)->e
+  </textarea>
+</div>
 
 <script src="../../lib/raphael-min.js"></script>
 <script src="../../lib/flowchart-latest.js"></script>
 
 <script type="text/javascript">
-var eventTree = flowchart.parse("\
-st=>start: Start\n\
-op0=>operation: 0\n\
-op1=>operation: 111\n\
-op2=>operation: 222\n\
-op3=>operation: 333\n\
-op4=>operation: 444\n\
-\
-op0->op1\n\
-op1->op2\n\
-op1(right)->op3\n\
-op3->op1\n\
-");
 
-eventTree.drawSVG('eventTree');
+// st=>start: Start
+// e=>end: End
+// op1=>operation: My Operation|past
+// op2=>operation: Stuff|current
+// sub1=>subroutine: My Subroutine|invalid
+// cond=>condition: Yes
+// or No?|approved:>http://www.google.com
+// c2=>condition: Good idea|rejected
+// io=>inputoutput: catch something...|future
+
+// st->op1(right)->cond
+// cond(yes, right)->c2
+// cond(no)->sub1(left)->op1
+// c2(yes)->io->e
+// c2(no)->op2->e
+
+// st=>start: Start\n\
+// op0=>operation: 0\n\
+// op1=>operation: 111\n\
+// op2=>operation: 222\n\
+// op3=>operation: 333\n\
+// op4=>operation: 444\n\
+// \
+// op0->op1\n\
+// op1->op2\n\
+// op1(right)->op3\n\
+// op3->op1\n\
+
+var c1 = document.getElementById('digestCode');
+var digest = flowchart.parse(c1.value);
+
+digest.drawSVG('digest');
 
 // var txt = document.getElementById('div1').innerHTML;
 // var diagram1 = flowchart.parse(txt);
