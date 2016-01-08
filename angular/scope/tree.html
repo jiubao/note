@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="../../lib/d3/d3.min.js"></script>
+  <script type="text/javascript" src="../../lib/jquery-2.1.4.min.js"></script>
+  <style type="text/css">
+    g.node {
+        font-family: Verdana, Helvetica;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    circle.node-dot {
+        fill: lightsalmon;
+        stroke: red;
+        stroke-width: 1px;
+    }
+
+    path.link {
+        fill: none;
+        stroke: gray;
+    }
+    .stree {
+      border: solid 1px #aaa;
+/*      margin: 0 100px;
+      width: 40%;
+      display: inline-block;
+*/    }
+    .tbox {
+      width: 40%;
+      display: inline-block;
+      margin: 20px 40px;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+
+<div class="tbox">
+<h2>tree base structure</h2>
+<div class="stree" id="baseTree"></div>
+</div>
+
+<div class="tbox">
+<h2>operating tree</h2>
+<div class="stree" id="operatingTree"></div>
+</div>
+
+<div class="tbox">
+<h2>prototype inheritance tree</h2>
+<div class="stree" id="protoTree"></div>
+</div>
+
+<div class="tbox">
+<h2>ram tree</h2>
+<div class="stree" id="ramTree"></div>
+</div>
+
+<script src="https://gist.github.com/jiubao/15b7cc601d3744fe9509.js"></script>
+
+<script type="text/javascript" src="tree.js"></script>
+<script type="text/javascript">
+ 
+var treebase = {
+  name: "/",
+  contents: [
+    {
+      name: "$parent",
+      contents: [
+          {
+              name: "Current",
+              contents: [
+                  { name: "$$prevSibling" },
+                  { name: "$$nextSibling" },
+                  { name: "$$childHead" },
+                  { name: "$$childTail" }
+              ]
+          }
+      ]
+    }
+  ]
+};
+
+var operatingTree = {
+  name: "/",
+  contents: [
+    {
+      name: "rootScope",
+      contents: [
+        {
+          name: "ctrl1",
+          contents: [
+            { name: "dir1(isolate)" },
+            { name: "dir2(isolate)" },
+            { name: "dir3" },
+          ]
+        },
+        {
+          name: "ctrl2",
+        }
+      ]
+    }
+  ]
+};
+
+var ramTree = {
+  name: "/",
+  contents: [
+    {
+      name: "rootScope",
+      contents: [
+        {
+          name: "ctrl1",
+          contents: [
+            { name: "dir1(isolate)" },
+            { name: "dir3" }
+          ]
+        },
+        {
+          name: "ctrl2",
+        }
+      ]
+    }
+
+  ]
+};
+
+var protoTree = {
+  name: "/",
+  contents: [
+    {
+      name: "rootScope",
+      contents: [
+        {
+          name: "ctrl1",
+          contents: [
+            { name: "dir3" }
+          ]
+        },
+        {
+          name: "ctrl2"
+        }
+      ]
+    },
+    { name: "dir1(isolate)" },
+    { name: "dir2(isolate)" }
+  ]
+}
+ 
+
+$(function () {
+    buildTree(treebase, "#baseTree");
+    buildTree(operatingTree, "#operatingTree");
+    buildTree(ramTree, "#ramTree");
+    buildTree(protoTree, "#protoTree");
+});
+
+</script>
+</body>
+</html>
