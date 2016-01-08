@@ -2,30 +2,51 @@
 <html>
 <head>
   <title>angular scope</title>
+  <style type="text/css">
+  .cbox {
+    border: solid 1px #ccc; margin: 20px; padding: 0 20px 20px;
+    overflow: hidden; background-color: #f2f2f2;
+  }
+  </style>
 </head>
 <body>
 
 <h1>Thinging in Angular Scope</h1>
 
-<h2>Two trees</h2>
+<h2>Three trees</h2>
 
 <ol>
 <li><h3>prototypal inheritance tree</h3></li>
 <li><h3>operating tree (event tree)</h3></li>
+<li><h3>raw tree</h3></li>
 </ol>
 
-<br/>
+<h2>API</h2>
 
-<h2>$rootScope.$digest()</h2>
-<div id="digest"></div>
+<div class="cbox">
+  <h3>$rootScope.$digest()</h3>
+  <pre><code>$digest: function()</code></pre>
+  <div id="digest"></div>
+</div>
+
+<div class="cbox">
+  <h3>$rootScope.$apply()</h3>
+  <pre><code>$apply: function(expr)</code></pre>
+  <div id="apply"></div>
+</div>
+
+<div class="cbox">
+  <h3>$rootScope.$on</h3>
+  <pre><code>$on: function(name, listener)</code></pre>
+  <div id="on"></div>
+</div>
+
 
 coming
 $new
 $watch
-$on
 $emit
 $broadcast
-$digest
 
 <div id="chartCodes" style="display:none;">
   <textarea id="digestCode">
@@ -59,12 +80,44 @@ ttl(yes)->ttlReached
 ttl(no)->isDirty(yes, right)->haswatcher
 isDirty(no)->e
   </textarea>
+
+  <textarea id="applyCode">
+st=>start: Start
+e=>end: End
+eval=>operation: $parse(exp)(this)
+digest=>operation: $rootScope.$digest()
+
+st->eval->digest->e
+  </textarea>
+
+  <textarea id="onCode">
+st=>start: Start
+e=>end: End
+push=>operation: this.$$listeners[name].push(listener)
+add1=>operation: current.$$listenerCount[name]++
+hasParent=>condition: current =
+current.$parent
+
+st->push->add1->hasParent
+hasParent(yes, right)->add1
+hasParent(no)->e
+  </textarea>
 </div>
 
 <script src="../../lib/raphael-min.js"></script>
 <script src="../../lib/flowchart-latest.js"></script>
 
 <script type="text/javascript">
+
+function genChart(id) {
+  var c1 = document.getElementById(id + 'Code');
+  var digest = flowchart.parse(c1.value);
+  digest.drawSVG(id);
+}
+
+genChart('digest');
+genChart('apply');
+genChart('on');
 
 // st=>start: Start
 // e=>end: End
@@ -94,10 +147,6 @@ isDirty(no)->e
 // op1(right)->op3\n\
 // op3->op1\n\
 
-var c1 = document.getElementById('digestCode');
-var digest = flowchart.parse(c1.value);
-
-digest.drawSVG('digest');
 
 // var txt = document.getElementById('div1').innerHTML;
 // var diagram1 = flowchart.parse(txt);
