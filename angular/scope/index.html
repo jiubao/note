@@ -24,6 +24,18 @@
 <h2>API</h2>
 
 <div class="cbox">
+  <h3>$rootScope.$new()</h3>
+  <pre><code>$new: function(isolate, parent)</code></pre>
+  <div id="new"></div>
+</div>
+
+<div class="cbox">
+  <h3>$rootScope.$watch()</h3>
+  <pre><code>$watch: function(watchExp, listener, objectEquality, prettyPrintExpression)</code></pre>
+  <div id="watch"></div>
+</div>
+
+<div class="cbox">
   <h3>$rootScope.$digest()</h3>
   <pre><code>$digest: function()</code></pre>
   <div id="digest"></div>
@@ -41,12 +53,18 @@
   <div id="on"></div>
 </div>
 
+<div class="cbox">
+  <h3>$rootScope.$emit</h3>
+  <pre><code>$emit: function(name, args)</code></pre>
+  <div id="emit"></div>
+</div>
 
-coming
-$new
-$watch
-$emit
-$broadcast
+<div class="cbox">
+  <h3>$rootScope.$broadcast</h3>
+  <pre><code>$broadcast: function(name, args)</code></pre>
+  <div id="broadcast"></div>
+</div>
+
 
 <div id="chartCodes" style="display:none;">
   <textarea id="digestCode">
@@ -102,6 +120,65 @@ st->push->add1->hasParent
 hasParent(yes, right)->add1
 hasParent(no)->e
   </textarea>
+
+  <textarea id="emitCode">
+st=>start: Start
+e=>end: End
+newEvent=>operation: create event obj
+loopListeners=>condition: scope.$$listeners[name]
+(for)
+call=>operation: scope.$$listeners[name](args)
+next=>condition: scope = scope.$parent
+(while)
+
+st->newEvent->loopListeners
+loopListeners(yes, right)->call->loopListeners
+loopListeners(no)->next
+next(yes, right)->loopListeners
+next(no)->e
+  </textarea>
+
+  <textarea id="broadcastCode">
+st=>start: Start
+e=>end: End
+current=>condition: current = next
+loopListeners=>condition: current.$$listeners[name]
+(for)
+call=>operation: scope.$$listeners[name](args)
+next=>operation: set next
+
+st->current
+current(yes)->loopListeners
+current(no, right)->e
+loopListeners(yes)->call
+call->loopListeners
+loopListeners(no, right)->next->current
+  </textarea>
+
+  <textarea id="newCode">
+st=>start: Start
+e=>end: End
+isolate=>condition: isolate
+isolateScope=>operation: child = new Scope()
+scope=>operation: child = new this.$$ChildScope()
+init=>operation: add child in tree
+
+st->isolate
+isolate(yes)->isolateScope->init
+isolate(no)->scope->init
+init->e
+  </textarea>
+
+  <textarea id="watchCode">
+st=>start: Start
+e=>end: End
+
+new=>operation: new watcher
+add=>operation: $$watchers.unshift(watcher)
+inc=>operation: incrementWatchersCount
+
+st->new->add->inc->e
+  </textarea>
 </div>
 
 <script src="../../lib/raphael-min.js"></script>
@@ -115,9 +192,13 @@ function genChart(id) {
   digest.drawSVG(id);
 }
 
+genChart('new');
+genChart('watch');
 genChart('digest');
 genChart('apply');
 genChart('on');
+genChart('emit');
+genChart('broadcast');
 
 // st=>start: Start
 // e=>end: End
