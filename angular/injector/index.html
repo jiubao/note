@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>angular injector</title>
+  <style type="text/css">
+  .cbox {
+    border: solid 1px #ccc; margin: 20px; padding: 0 20px 20px;
+    overflow: hidden; background-color: #f2f2f2;
+  }
+  pre {
+    border: dashed 1px #aaa;
+  }
+  </style>
+  <link type="text/css" rel="stylesheet" href="../../lib/prism/prism.css"  media="screen,projection"/>
+</head>
+<body>
+<h1>Angular Injector</h1>
+
+<div class="cbox">
+  <h3>injectionArgs</h3>
+  <pre class="language-javascript" data-language="JavaScript"><code>
+function injectionArgs(fn, locals, serviceName) {
+  var args = [],
+      $inject = createInjector.$$annotate(fn, strictDi, serviceName);
+
+  for (var i = 0, length = $inject.length; i < length; i++) {
+    var key = $inject[i];
+    if (typeof key !== 'string') {
+      throw $injectorMinErr('itkn',
+              'Incorrect injection token! Expected service name as string, got {0}', key);
+    }
+    args.push(locals && locals.hasOwnProperty(key) ? locals[key] :
+                                                     getService(key, serviceName));
+  }
+  return args;
+}
+  </code></pre>
+  <div id="injectionArgs"></div>
+</div>
+
+<div class="cbox">
+  <h3>instantiate</h3>
+  <pre class="language-javascript" data-language="JavaScript"><code>
+function instantiate(Type, locals, serviceName) {
+  // Check if Type is annotated and use just the given function at n-1 as parameter
+  // e.g. someModule.factory('greeter', ['$window', function(renamed$window) {}]);
+  var ctor = (isArray(Type) ? Type[Type.length - 1] : Type);
+  var args = injectionArgs(Type, locals, serviceName);
+  // Empty object at position 0 is ignored for invocation with `new`, but required.
+  args.unshift(null);
+  /*jshint -W058 */ // Applying a constructor without immediate parentheses is the point here.
+  return new (Function.prototype.bind.apply(ctor, args));
+  /*jshint +W058 */
+}
+  </code></pre>
+  <div id="instantiate"></div>
+</div>
+
+<div class="cbox">
+  <h3>invoke</h3>
+  <pre class="language-javascript" data-language="JavaScript"><code>
+function invoke(fn, self, locals, serviceName) {
+  if (typeof locals === 'string') {
+    serviceName = locals;
+    locals = null;
+  }
+
+  var args = injectionArgs(fn, locals, serviceName);
+  if (isArray(fn)) {
+    fn = fn[fn.length - 1];
+  }
+
+  if (!isClass(fn)) {
+    // http://jsperf.com/angularjs-invoke-apply-vs-switch
+    // #5388
+    return fn.apply(self, args);
+  } else {
+    args.unshift(null);
+    /*jshint -W058 */ // Applying a constructor without immediate parentheses is the point here.
+    return new (Function.prototype.bind.apply(fn, args));
+    /*jshint +W058 */
+  }
+}
+  </code></pre>
+  <div id="invoke"></div>
+</div>
+
+<div class="cbox">
+  <h3>getService</h3>
+  <pre class="language-javascript" data-language="JavaScript"><code>
+function getService(serviceName, caller) {
+  if (cache.hasOwnProperty(serviceName)) {
+    if (cache[serviceName] === INSTANTIATING) {
+      throw $injectorMinErr('cdep', 'Circular dependency found: {0}',
+                serviceName + ' <- ' + path.join(' <- '));
+    }
+    return cache[serviceName];
+  } else {
+    try {
+      path.unshift(serviceName);
+      cache[serviceName] = INSTANTIATING;
+      return cache[serviceName] = factory(serviceName, caller);
+    } catch (err) {
+      if (cache[serviceName] === INSTANTIATING) {
+        delete cache[serviceName];
+      }
+      throw err;
+    } finally {
+      path.shift();
+    }
+  }
+}
+  </code></pre>
+  <div id="getService"></div>
+</div>
+
+<div class="cbox">
+  <h3>provider</h3>
+  <pre class="language-javascript" data-language="JavaScript"><code>
+function provider(name, provider_) {
+  assertNotHasOwnProperty(name, 'service');
+  if (isFunction(provider_) || isArray(provider_)) {
+    provider_ = providerInjector.instantiate(provider_);
+  }
+  if (!provider_.$get) {
+    throw $injectorMinErr('pget', "Provider '{0}' must define $get factory method.", name);
+  }
+  return providerCache[name + providerSuffix] = provider_;
+}
+  </code></pre>
+  <div id="provider"></div>
+</div>
+
+
+<div id="chartCodes" style="display:none;">
+
+<textarea id="injectionArgsCode">
+st=>start: Start
+e=>end: End
+annotate=>operation: $injector=annotate(fn)
+get argument list in string
+loop=>condition: loop $inject
+(for)
+get=>operation: getService
+push=>operation: args.push
+ret=>operation: return args
+
+st->annotate->loop
+loop(yes, right)->get(right)->push(right)->loop
+loop(no)->ret->e
+</textarea>
+
+<textarea id="instantiateCode">
+st=>start: Start
+e=>end: End
+ctor=>operation: ctor = Type / Type[length-1]
+args=>operation: args = injectionArgs(Type)
+new=>operation: new (Function.prototype.bind.apply(ctor, args));
+(return)
+
+st->ctor->args->new->e
+</textarea>
+
+<textarea id="invokeCode">
+st=>start: Start
+e=>end: End
+
+args=>operation: args = injectionArgs(fn)
+isClass=>condition: isClass(fn)
+apply=>operation: fn.apply(self, args)
+(return)
+bind=>operation: new Function.prototype.bind.apply(fn, args);
+(return)
+
+st->args->isClass
+isClass(yes)->bind->e
+isClass(no)->apply->e
+</textarea>
+
+<textarea id="getServiceCode">
+st=>start: Start
+e=>end: End
+
+has=>condition: cache
+.hasOwnProperty(serviceName)
+ins=>condition: cache[serviceName]
+=== INSTANTIATING
+throw=>operation: cdep
+(throw)
+retCache=>operation: cache[serviceName]
+(return)
+setInit=>operation: cache[serviceName] = INSTANTIATING
+retFac=>operation: factory(serviceNmae)
+(return)
+
+st->has
+has(yes, right)->ins
+ins(yes)->throw
+ins(no)->retCache
+has(no)->setInit->retFac->e
+
+</textarea>
+
+<textarea id="providerCode">
+st=>start: Start
+e=>end: End
+
+isFunArr=>condition: isFunction(provider_)
+or isArray(provider_)
+ins=>operation: provider_ = providerInjector.instantiate(provider_);
+ret=>operation: providerCache[name + providerSuffix] = provider_;
+(return)
+
+st->isFunArr(yes, right)->ins
+isFunArr(no)->ret->e
+</textarea>
+
+</div>
+
+
+<script src="../../lib/raphael-min.js"></script>
+<script src="../../lib/flowchart-latest.js"></script>
+<script type="text/javascript" src="../../lib/prism/prism.js"></script>
+<script type="text/javascript" src="../../app/app.js"></script>
+<script type="text/javascript">
+genChart('injectionArgs');
+genChart('instantiate');
+genChart('invoke');
+genChart('getService');
+genChart('provider');
+</script>
+
+</body>
+</html>
