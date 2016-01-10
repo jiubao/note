@@ -17,9 +17,23 @@
 <h1>Angular Injector</h1>
 
 <div class="cbox">
+  <h3>dependancy injection</h3>
+  <pre class="language-javascript" data-language="JavaScript">
+<code></code></pre>
+  <div id="di"></div>
+</div>
+
+<div class="cbox">
+  <h3>load modules</h3>
+  <pre class="language-javascript" data-language="JavaScript">
+<code></code></pre>
+  <div id="load"></div>
+</div>
+
+<div class="cbox">
   <h3>injectionArgs</h3>
-  <pre class="language-javascript" data-language="JavaScript"><code>
-function injectionArgs(fn, locals, serviceName) {
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function injectionArgs(fn, locals, serviceName) {
   var args = [],
       $inject = createInjector.$$annotate(fn, strictDi, serviceName);
 
@@ -33,15 +47,14 @@ function injectionArgs(fn, locals, serviceName) {
                                                      getService(key, serviceName));
   }
   return args;
-}
-  </code></pre>
+}</code></pre>
   <div id="injectionArgs"></div>
 </div>
 
 <div class="cbox">
   <h3>instantiate</h3>
-  <pre class="language-javascript" data-language="JavaScript"><code>
-function instantiate(Type, locals, serviceName) {
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function instantiate(Type, locals, serviceName) {
   // Check if Type is annotated and use just the given function at n-1 as parameter
   // e.g. someModule.factory('greeter', ['$window', function(renamed$window) {}]);
   var ctor = (isArray(Type) ? Type[Type.length - 1] : Type);
@@ -51,15 +64,14 @@ function instantiate(Type, locals, serviceName) {
   /*jshint -W058 */ // Applying a constructor without immediate parentheses is the point here.
   return new (Function.prototype.bind.apply(ctor, args));
   /*jshint +W058 */
-}
-  </code></pre>
+}</code></pre>
   <div id="instantiate"></div>
 </div>
 
 <div class="cbox">
   <h3>invoke</h3>
-  <pre class="language-javascript" data-language="JavaScript"><code>
-function invoke(fn, self, locals, serviceName) {
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function invoke(fn, self, locals, serviceName) {
   if (typeof locals === 'string') {
     serviceName = locals;
     locals = null;
@@ -80,15 +92,14 @@ function invoke(fn, self, locals, serviceName) {
     return new (Function.prototype.bind.apply(fn, args));
     /*jshint +W058 */
   }
-}
-  </code></pre>
+}</code></pre>
   <div id="invoke"></div>
 </div>
 
 <div class="cbox">
   <h3>getService</h3>
-  <pre class="language-javascript" data-language="JavaScript"><code>
-function getService(serviceName, caller) {
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function getService(serviceName, caller) {
   if (cache.hasOwnProperty(serviceName)) {
     if (cache[serviceName] === INSTANTIATING) {
       throw $injectorMinErr('cdep', 'Circular dependency found: {0}',
@@ -109,15 +120,14 @@ function getService(serviceName, caller) {
       path.shift();
     }
   }
-}
-  </code></pre>
+}</code></pre>
   <div id="getService"></div>
 </div>
 
 <div class="cbox">
   <h3>provider</h3>
-  <pre class="language-javascript" data-language="JavaScript"><code>
-function provider(name, provider_) {
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function provider(name, provider_) {
   assertNotHasOwnProperty(name, 'service');
   if (isFunction(provider_) || isArray(provider_)) {
     provider_ = providerInjector.instantiate(provider_);
@@ -126,13 +136,64 @@ function provider(name, provider_) {
     throw $injectorMinErr('pget', "Provider '{0}' must define $get factory method.", name);
   }
   return providerCache[name + providerSuffix] = provider_;
-}
-  </code></pre>
+}</code></pre>
   <div id="provider"></div>
+</div>
+
+<div class="cbox">
+  <h3>factory</h3>
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function factory(name, factoryFn, enforce) {
+  return provider(name, {
+    $get: enforce !== false ? enforceReturnValue(name, factoryFn) : factoryFn
+  });
+}</code></pre>
+  <div id="factory"></div>
+</div>
+
+<div class="cbox">
+  <h3>service</h3>
+  <pre class="language-javascript" data-language="JavaScript">
+<code>function service(name, constructor) {
+  return factory(name, ['$injector', function($injector) {
+    return $injector.instantiate(constructor);
+  }]);
+}</code></pre>
+  <div id="service"></div>
 </div>
 
 
 <div id="chartCodes" style="display:none;">
+
+<textarea id="diCode">
+instanceInjector->instanceCache: find in instance cache
+instanceCache->instanceInjector: cache not match
+instanceInjector->providerInjector: go to provider
+providerInjector->providerCache: find in provider cache
+providerCache->providerInjector: cache match
+providerInjector->instanceInjector: invoke(provider.$get)
+instanceInjector->instanceCache: put into instanceCache
+</textarea>
+
+<textarea id="loadCode">
+st=>start: Start
+e=>end: End
+loopM=>condition: loop modules
+(forEach)
+req=>operation: loadModules(module.requiers)
+load require modules and return run blocks
+concat1=>operation: cancat require modules' run blocks
+concat2=>operation: concat run blocks
+invoke=>operation: invoke queue
+config=>operation: config blocks
+
+retrun=>operation: return run blocks
+invokerun=>operation: invoke run blocks
+
+st->loopM(yes)->req->concat1->concat2->invoke->config->retrun
+loopM(no)->retrun->e
+
+</textarea>
 
 <textarea id="injectionArgsCode">
 st=>start: Start
@@ -215,19 +276,45 @@ st->isFunArr(yes, right)->ins
 isFunArr(no)->ret->e
 </textarea>
 
+<textarea id="factoryCode">
+st=>start: Start
+e=>end: End
+
+proObj=>operation: provider(name, {$get: factoryFn})
+(return)
+
+st->proObj->e
+</textarea>
+
+<textarea id="serviceCode">
+st=>start: Start
+e=>end: End
+
+st->e
+</textarea>
+
 </div>
 
 
 <script src="../../lib/raphael-min.js"></script>
+<script src="../../lib/underscore-min.js"></script>
+<script src="../../lib/sequence-diagram-min.js"></script>
 <script src="../../lib/flowchart-latest.js"></script>
+
 <script type="text/javascript" src="../../lib/prism/prism.js"></script>
+
 <script type="text/javascript" src="../../app/app.js"></script>
+
 <script type="text/javascript">
+genDiagram('di');
+genChart('load');
 genChart('injectionArgs');
 genChart('instantiate');
 genChart('invoke');
 genChart('getService');
 genChart('provider');
+genChart('factory');
+genChart('service');
 </script>
 
 </body>
