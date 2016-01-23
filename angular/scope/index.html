@@ -75,6 +75,9 @@ haswatcher=>condition: watch length
 <!-- exeExp=>operation: value=watch.get(scope) -->
 equalLast=>condition: watch value
 == last
+equalLastDirty=>condition: watch ===
+lastDirtyWatch
+breakLoop=>operation: break loop
 exeFn=>operation: watch.fn(value)
 setDirty=>operation: dirty=false
 decWatchLen=>operation: watcher.length--
@@ -89,8 +92,10 @@ ttlReached=>inputoutput: ttl reached
 
 st->haswatcher
 haswatcher(yes, right)->equalLast
-equalLast(yes, right)->exeFn(right)->haswatcher
-equalLast(no)->setDirty(right)->haswatcher
+equalLast(no, right)->exeFn(right)->haswatcher
+equalLast(yes)->equalLastDirty
+equalLastDirty(no, right)->haswatcher
+equalLastDirty(yes)->setDirty(right)->breakLoop(right)->ttl
 haswatcher(no)->hasNode
 hasNode(yes, right)->haswatcher
 hasNode(no)->ttl
