@@ -319,6 +319,15 @@ e=>end: End
 loop=>condition: directives
 (for)
 
+terminal=>condition: terminalPriority
+> dir.priority
+
+hasScope=>condition: directive.scope
+(if)
+
+setNewScope=>operation: newScopeDirective =
+newScopeDirective or directive
+
 hasCtrl=>condition: directive.controller
 (if)
 ctrlDirs=>operation: controllerDirectives =
@@ -346,9 +355,11 @@ newScopeDirective.scope === true
 ret=>operation: nodeLinkFn
 (return)
 
-st->loop(yes, right)->hasCtrl(yes, right)->ctrlDirs(right)->addCtrlDir->hasTmp(yes, right)->htmlTmp->hasCompile(yes)->linkFn(right)->linkIsFn(yes, right)->addLink1(right)->loop
+st->loop(yes, right)->terminal(no, bottom)->hasScope(no, bottom)->hasCtrl(yes, right)->ctrlDirs(right)->addCtrlDir->hasTmp(yes, right)->htmlTmp->hasCompile(yes)->linkFn(right)->linkIsFn(yes, right)->addLink1(right)->loop
 hasCtrl(no)->hasTmp(no)->hasCompile(no)->loop
 linkIsFn(no)->addLink2(right)->loop
+terminal(yes)->setScope
+hasScope(yes, right)->setNewScope->hasCtrl
 loop(no)->setScope->ret->e
 
 </textarea>
