@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>angular compile - phase two</title>
+  <style type="text/css">
+  .cbox {
+    border: solid 1px #ccc; margin: 20px; padding: 0 20px 20px;
+    overflow: hidden; background-color: #f2f2f2;
+  }
+  pre {
+    border: dashed 1px #aaa;
+  }
+  </style>
+  <link type="text/css" rel="stylesheet" href="../../lib/prism/prism.css"  media="screen,projection"/>
+</head>
+<body>
+<h1>Angular Compile - Phase Two</h1>
+
+<div class="cbox">
+  <h3>compositeLinkFn</h3>
+  <div id="compositeLinkFn"></div>
+</div>
+
+<div class="cbox">
+  <h3>nodeLinkFn</h3>
+  <div id="nodeLinkFn"></div>
+</div>
+
+<div class="cbox">
+  <h3>setupControllers</h3>
+  <div id="setupControllers"></div>
+</div>
+
+<div class="cbox">
+  <h3>getControllers</h3>
+  <div id="getControllers"></div>
+</div>
+
+<div class="cbox">
+  <h3>initializeDirectiveBindings</h3>
+  <div id="initializeDirectiveBindings"></div>
+</div>
+
+
+<div id="chartCodes" style="display:none;">
+
+<textarea id="nodeLinkFnCode">
+st=>start: Start
+e=>end: End
+
+setScope=>operation: controllerScope = scope;
+if (newIsolateScopeDirective) {
+  isolateScope = scope.$new(true);
+} else if (newScopeDirective) {
+  controllerScope = scope.$parent;
+}
+
+setCtrl=>operation: elementControllers =
+setupControllers()
+
+isIsolate=>condition: newIsolateScopeDirective
+(if)
+
+initDirBindings=>operation: initializeDirectiveBindings
+
+loop1=>condition: elementControllers
+(for)
+
+newCtrl=>operation: controller()
+
+loop2=>condition: controllerDirectives
+(for)
+setCtrl2=>operation: elementControllers[name].instance
+=getControllers()
+(extend)
+
+loop3=>condition: elementControllers
+oninit=>operation: controller.instance.$onInit()
+
+preLoop=>condition: preLinkFns
+(for)
+preCtrl=>operation: getControllers()
+preRun=>operation: invokeLinkFn()
+
+child=>operation: childLinkFn()
+
+postLoop=>condition: postLinkFns
+(for)
+postCtrl=>operation: getControllers()
+postRun=>operation: invokeLinkFn()
+
+
+st->setScope->setCtrl->isIsolate(yes)->initDirBindings->loop1(yes)->newCtrl->loop1
+isIsolate(no)->loop1(no)->loop2(yes)->setCtrl2->loop2
+loop2(no)->loop3(yes)->oninit->loop3
+loop3(no)->preLoop(yes)->preCtrl->preRun->preLoop
+preLoop(no)->child->postLoop(yes)->postCtrl->postRun->postLoop
+postLoop(no)->e
+
+</textarea>
+
+<textarea id="compositeLinkFnCode">
+st=>start: Start
+e=>end: End
+
+stable=>operation: set stableNodeList
+
+loop=>condition: linkFns
+(for)
+hasNodeLinkFn=>condition: nodeLinkFn
+(if)
+hasScope=>condition: nodeLinkFn.scope
+(if)
+new=>operation: childScope = scope.$new()
+//new scope inheritant from parent
+set=>operation: childScope = scope
+//use parent scope
+
+nodeLinkFn=>operation: nodeLinkFn()
+
+childLinkFn=>operation: childLinkFn()
+
+
+st->stable->loop(yes, right)->hasNodeLinkFn(yes, bottom)->hasScope(yes, bottom)->new
+hasScope(no)->set(right)->nodeLinkFn(right)
+hasNodeLinkFn(no)->childLinkFn(right)->loop
+new(right)->nodeLinkFn(right)->loop
+loop(no)->e
+</textarea>
+
+</div>
+
+
+<script src="../../lib/raphael-min.js"></script>
+<script src="../../lib/underscore-min.js"></script>
+<script src="../../lib/sequence-diagram-min.js"></script>
+<script src="../../lib/flowchart-latest.js"></script>
+
+<script type="text/javascript" src="../../lib/prism/prism.js"></script>
+
+<script type="text/javascript" src="../../app/app.js"></script>
+
+<script type="text/javascript">
+genChart('nodeLinkFn');
+genChart('compositeLinkFn');
+</script>
+
+</body>
+</html>
