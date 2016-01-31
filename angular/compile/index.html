@@ -17,76 +17,300 @@
 <h1>Angular Compile</h1>
 
 <div class="cbox">
-  <h3>injectionArgs</h3>
+  <h3>directive(registerDirective)</h3>
   <pre class="language-javascript" data-language="JavaScript">
-<code>function injectionArgs(fn, locals, serviceName) {
-  var args = [],
-      $inject = createInjector.$$annotate(fn, strictDi, serviceName);
-
-  for (var i = 0, length = $inject.length; i < length; i++) {
-    var key = $inject[i];
-    if (typeof key !== 'string') {
-      throw $injectorMinErr('itkn',
-              'Incorrect injection token! Expected service name as string, got {0}', key);
+<code>this.directive = function registerDirective(name, directiveFactory) {
+  assertNotHasOwnProperty(name, 'directive');
+  if (isString(name)) {
+    assertValidDirectiveName(name);
+    assertArg(directiveFactory, 'directiveFactory');
+    if (!hasDirectives.hasOwnProperty(name)) {
+      hasDirectives[name] = [];
+      $provide.factory(name + Suffix, ['$injector', '$exceptionHandler',
+        function($injector, $exceptionHandler) {
+          var directives = [];
+          forEach(hasDirectives[name], function(directiveFactory, index) {
+            try {
+              var directive = $injector.invoke(directiveFactory);
+              if (isFunction(directive)) {
+                directive = { compile: valueFn(directive) };
+              } else if (!directive.compile && directive.link) {
+                directive.compile = valueFn(directive.link);
+              }
+              directive.priority = directive.priority || 0;
+              directive.index = index;
+              directive.name = directive.name || name;
+              directive.require = directive.require || (directive.controller && directive.name);
+              directive.restrict = directive.restrict || 'EA';
+              var bindings = directive.$$bindings =
+                  parseDirectiveBindings(directive, directive.name);
+              if (isObject(bindings.isolateScope)) {
+                directive.$$isolateBindings = bindings.isolateScope;
+              }
+              directive.$$moduleName = directiveFactory.$$moduleName;
+              directives.push(directive);
+            } catch (e) {
+              $exceptionHandler(e);
+            }
+          });
+          return directives;
+        }]);
     }
-    args.push(locals && locals.hasOwnProperty(key) ? locals[key] :
-                                                     getService(key, serviceName));
+    hasDirectives[name].push(directiveFactory);
+  } else {
+    forEach(name, reverseParams(registerDirective));
   }
-  return args;
-}</code></pre>
-  <div id="injectionArgs"></div>
+  return this;
+};</code></pre>
+  <div id="directive"></div>
 </div>
 
 <div class="cbox">
-  <h3>instantiate</h3>
+  <h3>parseDirectiveBindings</h3>
   <pre class="language-javascript" data-language="JavaScript">
-<code>function instantiate(Type, locals, serviceName) {
-  // Check if Type is annotated and use just the given function at n-1 as parameter
-  // e.g. someModule.factory('greeter', ['$window', function(renamed$window) {}]);
-  var ctor = (isArray(Type) ? Type[Type.length - 1] : Type);
-  var args = injectionArgs(Type, locals, serviceName);
-  // Empty object at position 0 is ignored for invocation with `new`, but required.
-  args.unshift(null);
-  /*jshint -W058 */ // Applying a constructor without immediate parentheses is the point here.
-  return new (Function.prototype.bind.apply(ctor, args));
-  /*jshint +W058 */
-}</code></pre>
-  <div id="instantiate"></div>
+<code>function parseDirectiveBindings(directive, directiveName) {
+  var bindings = {
+    isolateScope: null,
+    bindToController: null
+  };
+  if (isObject(directive.scope)) {
+    if (directive.bindToController === true) {
+      bindings.bindToController = parseIsolateBindings(directive.scope,
+                                                       directiveName, true);
+      bindings.isolateScope = {};
+    } else {
+      bindings.isolateScope = parseIsolateBindings(directive.scope,
+                                                   directiveName, false);
+    }
+  }
+  if (isObject(directive.bindToController)) {
+    bindings.bindToController =
+        parseIsolateBindings(directive.bindToController, directiveName, true);
+  }
+  if (isObject(bindings.bindToController)) {
+    var controller = directive.controller;
+    var controllerAs = directive.controllerAs;
+    if (!controller) {
+      // There is no controller, there may or may not be a controllerAs property
+      throw $compileMinErr('noctrl',
+            "Cannot bind to controller without directive '{0}'s controller.",
+            directiveName);
+    } else if (!identifierForController(controller, controllerAs)) {
+      // There is a controller, but no identifier or controllerAs property
+      throw $compileMinErr('noident',
+            "Cannot bind to controller without identifier for directive '{0}'.",
+            directiveName);
+    }
+  }
+  return bindings;
+}
+</code></pre>
+  <div id="parseDirectiveBindings"></div>
 </div>
 
+<div class="cbox">
+  <h3>compileNodes</h3>
+  <div id="compileNodes"></div>
+</div>
+
+<div class="cbox">
+  <h3>collectDirectives</h3>
+  <div id="collectDirectives"></div>
+</div>
+
+<div class="cbox">
+  <h3>addDirective</h3>
+  <div id="addDirective"></div>
+</div>
+
+<div class="cbox">
+  <h3>addAttrInterpolateDirective</h3>
+  <div id="addAttrInterpolateDirective"></div>
+</div>
+
+<div class="cbox">
+  <h3>addTextInterpolateDirective</h3>
+  <div id="addTextInterpolateDirective"></div>
+</div>
+
+<div class="cbox">
+  <h3>applyDirectives</h3>
+  <div id="applyDirectives"></div>
+</div>
 
 <div id="chartCodes" style="display:none;">
 
-<textarea id="diCode">
-instanceInjector->instanceCache: find in instance cache
-instanceCache->instanceInjector: cache not match
-instanceInjector->providerInjector: go to provider
-providerInjector->providerCache: find in provider cache
-providerCache->providerInjector: cache match
-providerInjector->instanceInjector: invoke(provider.$get)
-instanceInjector->instanceCache: put into instanceCache
-</textarea>
-
-<textarea id="loadCode">
+<textarea id="directiveCode">
 st=>start: Start
 e=>end: End
-loopM=>condition: loop modules
-(forEach)
-req=>operation: loadModules(module.requiers)
-load require modules and return run blocks
-concat1=>operation: cancat require modules' run blocks
-concat2=>operation: concat run blocks
-invoke=>operation: invoke queue
-config=>operation: config blocks
 
-retrun=>operation: return run blocks
-invokerun=>operation: invoke run blocks
+isString=>condition: isString(name)
+loopName=>operation: register directive
+on each name
+hasDirective=>condition: hasDirectives
+.hasOwnProperty(name)
+push=>operation: hasDirectives[name].push
+(directiveFactory)
+provide=>operation: $provide.factory
 
-st->loopM(yes)->req->concat1->concat2->invoke->config->retrun
-loopM(no)->retrun->e
+st->isString(no)->loopName->e
+isString(yes)->hasDirective(yes)->push->e
+hasDirective(no)->provide->push
 
 </textarea>
 
+<textarea id="parseDirectiveBindingsCode">
+st=>start: Start
+e=>end: End
+
+init=>operation: isolateScope=null
+bindToController=null
+scopeIsObj=>condition: isObject(
+directive.scope)
+bindToIsTrue=>condition: directive.bindToController
+=== true
+set1=>operation: bindToController =
+parseIsolateBindings(directive.scope)
+set12=>operation: isolateScope =
+{}
+set2=>operation: isolateScope =
+parseIsolateBindings(directive.scope)
+bindToIsObj=>condition: isObject(
+directive.bindToController)
+set3=>operation: bindToController =
+parseIsolateBindings(directive.bindToController)
+ret=>operation: return bindings:{
+isolateScope,
+bindToController}
+
+st->init->scopeIsObj(yes)->bindToIsTrue(yes)->set1->set12(right)->bindToIsObj
+bindToIsTrue(no)->set2(right)->bindToIsObj
+scopeIsObj(no)->bindToIsObj(yes, right)->set3->ret
+bindToIsObj(no)->ret->e
+</textarea>
+
+<textarea id="compileNodesCode">
+st=>start: Start
+e=>end: End
+loop=>condition: loop nodeList
+(for)
+attr=>operation: new Attributes()
+collectDir=>operation: directives =
+collectDirectives
+applyDir=>operation: nodeLinkFn=
+applyDirectivesToNode
+child=>operation: childLinkFn=
+compileNodes(childNodes)
+push=>operation: linkFns.push(
+i, nodeLinkFn, childLinkFn)
+ret=>operation: compositeLinkFn
+(return)
+
+st->loop(yes, right)->attr(right)->collectDir(right)->applyDir(right)->child(right)->push->ret->e
+loop(no)->ret
+</textarea>
+
+<textarea id="collectDirectivesCode">
+st=>start: Start
+e=>end: End
+
+isEle=>condition: if element
+add1=>operation: addDirective(
+nodeName)
+
+loop=>condition: node.attributes
+(for)
+
+addattr=>operation: addAttrInterpolateDirective(
+attr.value)
+add2=>operation: addDirective(
+attr.name)
+
+isTxt=>condition: if text node
+addtext=>operation: addTextInterpolateDirective(
+node.nodeValue)
+
+isCom=>condition: if comment
+add3=>operation: addDirective(name)
+
+sort=>operation: directives.sort
+(byPriority)
+ret=>operation: directives
+(return)
+
+
+st->isEle(yes, right)->add1(right)->loop(yes)->addattr->add2->sort
+loop(no, right)->sort
+isEle(no)->isTxt(yes, right)->addtext->sort
+isTxt(no)->isCom(yes, right)->add3->sort
+isCom(no)->sort->ret->e
+
+</textarea>
+
+st->isEle(yes)->add1->loop(yes)->addattr->add2->sort
+loop(no)->sort
+isEle(no)->isTxt(yes)->addtext->sort
+isTxt(no)->isCom(yes)->add3->sort
+isCom(no)->sort->ret->e
+
+<textarea id="addDirectiveCode">
+
+st=>start: Start
+e=>end: End
+
+hasDir=>condition: hasDirectives.
+hasOwnProperty(name)
+
+getDir=>operation: directives=
+$injector.get(name+Suffix)
+
+loop=>condition: directives
+(for)
+
+push=>operation: tDirectives.push(
+directive)
+
+match=>operation: match = directive
+
+ret=>operation: match
+(return)
+
+
+st->hasDir(yes, right)->getDir(right)->loop(yes, right)->push(right)->match->ret
+hasDir(no)->ret
+loop(no)->ret->e
+
+</textarea>
+
+<textarea id="addAttrInterpolateDirectiveCode">
+st=>start: Start
+e=>end: End
+
+interpolateFn=>operation: interpolateFn =
+$interpolate(value)
+
+notFn=>condition: !interpolateFn
+
+push=>operation: directive.push
+
+st->interpolateFn(right)->notFn(yes)->e
+notFn(no)->push->e
+</textarea>
+
+<textarea id="addTextInterpolateDirectiveCode">
+st=>start: Start
+e=>end: End
+
+interpolateFn=>operation: interpolateFn =
+$interpolate(value)
+
+isFn=>condition: interpolateFn
+
+push=>operation: directive.push
+
+st->interpolateFn(right)->isFn(yes, right)->push->e
+isFn(no)->e
+</textarea>
 
 </div>
 
@@ -101,6 +325,14 @@ loopM(no)->retrun->e
 <script type="text/javascript" src="../../app/app.js"></script>
 
 <script type="text/javascript">
+genChart('directive');
+genChart('parseDirectiveBindings');
+genChart('compileNodes');
+genChart('collectDirectives');
+genChart('addDirective');
+genChart('addAttrInterpolateDirective');
+genChart('addTextInterpolateDirective');
+
 // genDiagram('di');
 // genChart('load');
 // genChart('injectionArgs');
