@@ -134,8 +134,8 @@
 </div>
 
 <div class="cbox">
-  <h3>applyDirectives</h3>
-  <div id="applyDirectives"></div>
+  <h3>applyDirectivesToNodes</h3>
+  <div id="applyDirectivesToNodes"></div>
 </div>
 
 <div id="chartCodes" style="display:none;">
@@ -206,8 +206,8 @@ i, nodeLinkFn, childLinkFn)
 ret=>operation: compositeLinkFn
 (return)
 
-st->loop(yes, right)->attr(right)->collectDir(right)->applyDir(right)->child(right)->push->ret->e
-loop(no)->ret
+st->loop(yes, right)->attr(right)->collectDir(right)->applyDir(right)->child(right)->push(right)->loop
+loop(no)->ret->e
 </textarea>
 
 <textarea id="collectDirectivesCode">
@@ -239,8 +239,8 @@ ret=>operation: directives
 (return)
 
 
-st->isEle(yes, right)->add1(right)->loop(yes)->addattr->add2->sort
-loop(no, right)->sort
+st->isEle(yes, right)->add1(right)->loop(yes, right)->addattr(right)->add2(right)->loop
+loop(no)->sort
 isEle(no)->isTxt(yes, right)->addtext->sort
 isTxt(no)->isCom(yes, right)->add3->sort
 isCom(no)->sort->ret->e
@@ -276,7 +276,7 @@ ret=>operation: match
 (return)
 
 
-st->hasDir(yes, right)->getDir(right)->loop(yes, right)->push(right)->match->ret
+st->hasDir(yes, right)->getDir(right)->loop(yes, right)->push(right)->match(right)->loop
 hasDir(no)->ret
 loop(no)->ret->e
 
@@ -312,6 +312,47 @@ st->interpolateFn(right)->isFn(yes, right)->push->e
 isFn(no)->e
 </textarea>
 
+<textarea id="applyDirectivesToNodesCode">
+st=>start: Start
+e=>end: End
+
+loop=>condition: directives
+(for)
+
+hasCtrl=>condition: directive.controller
+(if)
+ctrlDirs=>operation: controllerDirectives =
+createMap()
+addCtrlDir=>operation: controllerDirectives[directiveName]=
+directive
+
+hasTmp=>condition: directive.template
+(if)
+htmlTmp=>operation: $compileNode.html(
+directive.template)
+
+hasCompile=>condition: directive.compile
+(if)
+linkFn=>operation: linkFn = directive.compile(...);
+linkIsFn=>condition: isFunction(linkFn)
+(if)
+addLink1=>operation: addLinkFns(null, linkFn)
+addLink2=>operation: addLinkFns(linkFn.pre, linkFn.post)
+
+setScope=>operation: nodeLinkFn.scope =
+newScopeDirective &&
+newScopeDirective.scope === true
+
+ret=>operation: nodeLinkFn
+(return)
+
+st->loop(yes, right)->hasCtrl(yes, right)->ctrlDirs(right)->addCtrlDir->hasTmp(yes, right)->htmlTmp->hasCompile(yes)->linkFn(right)->linkIsFn(yes, right)->addLink1(right)->loop
+hasCtrl(no)->hasTmp(no)->hasCompile(no)->loop
+linkIsFn(no)->addLink2(right)->loop
+loop(no)->setScope->ret->e
+
+</textarea>
+
 </div>
 
 
@@ -332,6 +373,7 @@ genChart('collectDirectives');
 genChart('addDirective');
 genChart('addAttrInterpolateDirective');
 genChart('addTextInterpolateDirective');
+genChart('applyDirectivesToNodes');
 
 // genDiagram('di');
 // genChart('load');
