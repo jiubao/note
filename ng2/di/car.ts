@@ -1,12 +1,13 @@
 //tsc --experimentalDecorators --emitDecoratorMetadata 1.ts
-function Injectable(): ClassDecorator {
-  return (target) => target;
+
+function Injectable(): ClassDecorator & PropertyDecorator {
+	return (target) => target;
 }
 
-@Injectable()
 class Engine {}
 
 @Injectable()
 class Car {
-  constructor(public engine: Engine) {}
+	constructor(public engine: Engine) {}
 }
+

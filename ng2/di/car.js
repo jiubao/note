@@ -13,10 +13,6 @@ function Injectable() {
 var Engine = (function () {
     function Engine() {
     }
-    Engine = __decorate([
-        Injectable(),
-        __metadata('design:paramtypes', [])
-    ], Engine);
     return Engine;
 })();
 var Car = (function () {
@@ -24,7 +20,7 @@ var Car = (function () {
         this.engine = engine;
     }
     Car = __decorate([
-        Injectable(),
+        Injectable(), 
         __metadata('design:paramtypes', [Engine])
     ], Car);
     return Car;
