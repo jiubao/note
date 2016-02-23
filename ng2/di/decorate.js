@@ -3,32 +3,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+}
 
-var _decorate = function(decorators, target, key, desc) {
+var __decorate = function(decorators, target, key, desc) {
   var len = arguments.length;
-  var r, decorator;
+  var result, decorator;
 
   if (len < 3) {
-    r = target;
-  } else if (desc === null) {
-    r = desc = Object.getOwnPropertyDescriptor(target, key);
+    result = target;
   } else {
-    r = desc;
+    if (desc === null) {
+      desc = Object.getOwnPropertyDescriptor(target, key);
+    }
+    result = desc;
   }
 
-  for (var i = decorators.length - 1; i >= 0; i--) {
-    var result;
-    if (decorator = decorators[i]) {
-      if (len < 3) {
-        result = decorator(r);
-      } else if (len > 3) {
-        result = decorator(target, key, r);
-      } else {
-        result = decorator(target, key);
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") {
+    result = Reflect.decorate(decorators, target, key, desc);
+  } else {
+    for (var i = decorators.length - 1; i >= 0; i--) {
+      var temp;
+      if (decorator = decorators[i]) {
+        if (len < 3) {
+          temp = decorator(result);
+        } else if (len > 3) {
+          temp = decorator(target, key, result);
+        } else {
+          temp = decorator(target, key);
+        }
       }
-
-      result = result || r;
+      result = temp || result;
     }
   }
 
@@ -37,4 +41,15 @@ var _decorate = function(decorators, target, key, desc) {
   }
 
   return result;
+}
+
+
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var __metadata = function(key, value) {
+  if (typeof Reflect === 'object' && typeof Reflect.metadata === 'function') {
+    return Reflect.metadata(key, value);
+  }
 }
