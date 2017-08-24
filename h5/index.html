@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>h5</title>
-  </head>
-  <body>
-    keng
-  </body>
+<head>
+  <title>h5</title>
+  <style type="text/css">
+  .cbox {
+    border: solid 1px #ccc; margin: 20px; padding: 0 20px 20px;
+    overflow: hidden; background-color: #f2f2f2;
+  }
+  pre {
+    border: dashed 1px #aaa;
+  }
+  </style>
+  <link type="text/css" rel="stylesheet" href="../lib/prism/prism.css"  media="screen,projection"/>
+</head>
+<body>
+<h1>H5</h1>
+
+<div class="cbox">
+  <h3>Uncaught URIError: URI malformed</h3>
+  <pre class="language-javascript" data-language="JavaScript">
+<code>decodeURIComponent('%C2%AF') // "-"
+decodeURIComponent('%AF') // Uncaught URIError: URI malformed
+</code></pre>
+
+  <a href="https://stackoverflow.com/questions/9064536/javascript-decodeuricomponent-malformed-uri-exception">
+    Javascript decodeURI(Component) malformed uri exception
+  </a>
+</div>
+
+
+<div class="cbox">
+  <h3>VueJS v-bind:style for background-image: url()</h3>
+<code style="font-size: 13px; line-height: 16px">:style='{ backgroundImage: `url(${item.img})` }'<br>
+v-bind:style="{ 'background-image': 'url(' + image + ')' }"</code>
+</div>
+
+
+
+
+<script src="../lib/raphael-min.js"></script>
+<script src="../lib/underscore-min.js"></script>
+<script src="../lib/sequence-diagram-min.js"></script>
+<script src="../lib/flowchart-latest.js"></script>
+
+<script type="text/javascript" src="../lib/prism/prism.js"></script>
+
+<script type="text/javascript" src="../app/app.js"></script>
+
+<script type="text/javascript">
+</script>
+
+</body>
 </html>
