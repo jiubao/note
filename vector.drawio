@@ -1,1 +1,22 @@
-<mxfile host="app.diagrams.net" modified="2022-01-24T03:26:28.794Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" version="16.4.5" etag="zoxEslirllN4S8GlrRWT" type="github"><diagram id="vk0mdWNgcAM2v0MkseZO">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-01-25T08:36:05.116Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" etag="XLwowqD1YlmvylXGGNts" version="16.4.5" type="github">
+  <diagram id="vk0mdWNgcAM2v0MkseZO" name="Page-1">
+    <mxGraphModel dx="1826" dy="1226" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-3" value="&lt;span style=&quot;font-size: 30px; background-color: rgb(255, 255, 255);&quot;&gt;$$&lt;br style=&quot;font-size: 30px;&quot;&gt;\begin{pmatrix}&lt;br style=&quot;font-size: 30px;&quot;&gt;1 \\&lt;br style=&quot;font-size: 30px;&quot;&gt;1&lt;br style=&quot;font-size: 30px;&quot;&gt;\end{pmatrix}+\begin{pmatrix}&lt;br style=&quot;font-size: 30px;&quot;&gt;2 \\&lt;br style=&quot;font-size: 30px;&quot;&gt;1&lt;br style=&quot;font-size: 30px;&quot;&gt;\end{pmatrix}=\begin{pmatrix}&lt;br style=&quot;font-size: 30px;&quot;&gt;1+2 \\&lt;br style=&quot;font-size: 30px;&quot;&gt;1+1&lt;br style=&quot;font-size: 30px;&quot;&gt;\end{pmatrix}$$&lt;br style=&quot;font-size: 30px;&quot;&gt;&lt;/span&gt;&lt;span style=&quot;font-size: 30px;&quot;&gt;&lt;br style=&quot;font-size: 30px;&quot;&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;fontSize=30;" vertex="1" parent="1">
+          <mxGeometry x="-72" y="-66" width="421" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-7" value="$$3 \times \begin{pmatrix}&lt;br&gt;2 \\ 1\end{pmatrix}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;3 \times 2 \\ 3 \times 1\end{pmatrix}$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="401" y="-138" width="370" height="174" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-10" value="$$ a \vec v + b \vec w&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="778" y="-120" width="152" height="107" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-12" value="&lt;div&gt;$$&lt;span&gt;\begin{pmatrix}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;\end{pmatrix}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;$$&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="184" y="42" width="681" height="315" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
