@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-01-25T08:36:05.116Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" etag="XLwowqD1YlmvylXGGNts" version="16.4.5" type="github">
+<mxfile host="app.diagrams.net" modified="2022-01-28T03:54:52.528Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" etag="2QoD54XCw7xUoY_ISU5I" version="16.4.5" type="github">
   <diagram id="vk0mdWNgcAM2v0MkseZO" name="Page-1">
-    <mxGraphModel dx="1826" dy="1226" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+    <mxGraphModel dx="2226" dy="1226" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -13,8 +13,101 @@
         <mxCell id="ynwGwAjY9VG2_DhMksf5-10" value="$$ a \vec v + b \vec w&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="778" y="-120" width="152" height="107" as="geometry" />
         </mxCell>
-        <mxCell id="ynwGwAjY9VG2_DhMksf5-12" value="&lt;div&gt;$$&lt;span&gt;\begin{pmatrix}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;\end{pmatrix}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;$$&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="184" y="42" width="681" height="315" as="geometry" />
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-13" value="$$M_{m,n} =&lt;br&gt; \begin{pmatrix}&lt;br&gt;  a_{1,1} &amp;amp; a_{1,2} &amp;amp; \cdots &amp;amp; a_{1,n} \\&lt;br&gt;  a_{2,1} &amp;amp; a_{2,2} &amp;amp; \cdots &amp;amp; a_{2,n} \\&lt;br&gt;  \vdots  &amp;amp; \vdots  &amp;amp; \ddots &amp;amp; \vdots  \\&lt;br&gt;  a_{m,1} &amp;amp; a_{m,2} &amp;amp; \cdots &amp;amp; a_{m,n}&lt;br&gt; \end{pmatrix}$$" style="text;html=1;spacing=5;spacingTop=-10;whiteSpace=wrap;overflow=hidden;fillColor=none;strokeColor=none;shadow=0;rounded=0;verticalAlign=middle;fontSize=30;" vertex="1" parent="1">
+          <mxGeometry x="-66" y="-2" width="584" height="327" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-15" value="$$&lt;br&gt;M_{m,n} \times \vec u = fn(\vec u)&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="565" y="40" width="305" height="111" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-17" value="$$&lt;br&gt;L(\vec u + \vec v)=L(\vec u)+L(\vec v)&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="559" y="149" width="400" height="113" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-18" value="$$&lt;br&gt;L(\alpha \vec u)=\alpha L(\vec u)&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="562" y="271" width="263" height="111" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-19" value="$$&lt;br&gt;\begin{pmatrix}&lt;br&gt;3 &amp;amp; 1 \\&lt;br&gt;1 &amp;amp; 2&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="965" y="77" width="148" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-22" value="$$&lt;br&gt;\begin{pmatrix}a &amp;amp; b \\ c &amp;amp; d\end{pmatrix}&lt;br&gt;\begin{pmatrix}x \\ y\end{pmatrix}=&lt;br&gt;x\begin{pmatrix}a \\ c\end{pmatrix}+&lt;br&gt;y\begin{pmatrix}b \\ d\end{pmatrix}=&lt;br&gt;\begin{pmatrix}ax + by \\ cx + dy\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-114" y="372" width="800" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-23" value="$$&lt;br&gt;S_{x,y}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;s_x &amp;amp; 0 \\ 0 &amp;amp; s_y&lt;br&gt;\end{pmatrix}\times&lt;br&gt;\begin{pmatrix}x \\ y\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="866" y="195" width="359" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-25" value="$$&lt;br&gt;\begin{pmatrix}&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-607" y="1407" width="359" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-27" value="$$&lt;br&gt;R_{x,y}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;cos\theta &amp;amp; -sin\theta \\&lt;br&gt;sin\theta &amp;amp; cos\theta&lt;br&gt;\end{pmatrix}\times&lt;br&gt;\begin{pmatrix}&lt;br&gt;x \\ y&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="778" y="325" width="359" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-28" value="$$&lt;br&gt;\begin{bmatrix}1&amp;amp;1\\0&amp;amp;1\end{bmatrix}\times&lt;br&gt;\left(\begin{bmatrix}0&amp;amp;-1\\1&amp;amp;0\end{bmatrix}\times&lt;br&gt;\begin{bmatrix}x\\y\end{bmatrix}\right)=&lt;br&gt;\left(\begin{bmatrix}1&amp;amp;1\\0&amp;amp;1\end{bmatrix}\times&lt;br&gt;\begin{bmatrix}0&amp;amp;-1\\1&amp;amp;0\end{bmatrix}\right)\times&lt;br&gt;\begin{bmatrix}x\\y\end{bmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-117" y="505" width="980" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-30" value="$$A \times A^{-1}=I$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="935" y="548" width="274" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-31" value="$$2x+5y+3z=-3$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-117" y="762" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-32" value="$$4x+0y+8z=0$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="820" width="320" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-33" value="$$1x+3y+0z=2$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="880" width="310" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-34" value="$$&lt;br&gt;\begin{bmatrix}&lt;br&gt;2&amp;amp;5&amp;amp;3\\4&amp;amp;0&amp;amp;8\\1&amp;amp;3&amp;amp;0&lt;br&gt;\end{bmatrix}&lt;br&gt;\begin{bmatrix}&lt;br&gt;x\\y\\z&lt;br&gt;\end{bmatrix}=&lt;br&gt;\begin{bmatrix}&lt;br&gt;-3\\0\\2&lt;br&gt;\end{bmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="380" y="730" width="359" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-35" value="" style="endArrow=classic;html=1;rounded=0;fontSize=30;fontColor=#000000;strokeWidth=3;fillColor=#fff2cc;strokeColor=#d6b656;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="201" y="840" as="sourcePoint" />
+            <mxPoint x="320" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-36" value="$$A \times \vec x = \vec v$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="871" y="713" width="201" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-37" value="$$A^{-1} \times A \times \vec x = A^{-1} \times \vec v$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="861" y="873" width="442" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-38" value="$$\vec x = A^{-1} \times \vec v$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="871" y="793" width="244" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-39" value="$$&lt;br&gt;T_{(x,y)}=&lt;br&gt;\begin{pmatrix}x\\y\end{pmatrix}+&lt;br&gt;\begin{pmatrix}t_x\\t_y\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="284" y="958" width="420" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-40" value="$$&lt;br&gt;\vec u=M_1 \times \vec v + M_2&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="739" y="949" width="420" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-41" value="$$&lt;br&gt;R_{(x,y)}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;cos\theta&amp;amp;-sin\theta&amp;amp;0\\&lt;br&gt;sin\theta&amp;amp;cos\theta&amp;amp;0\\&lt;br&gt;0&amp;amp;0&amp;amp;1&lt;br&gt;\end{pmatrix} \times&lt;br&gt;\begin{pmatrix}&lt;br&gt;x\\y\\1&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-146" y="1111" width="679" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-42" value="$$&lt;br&gt;S_{(x,y)}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;s_x&amp;amp;0&amp;amp;0\\&lt;br&gt;0&amp;amp;s_y&amp;amp;0\\&lt;br&gt;0&amp;amp;0&amp;amp;1&lt;br&gt;\end{pmatrix} \times&lt;br&gt;\begin{pmatrix}&lt;br&gt;x\\y\\1&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="533" y="1127" width="679" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-43" value="$$&lt;br&gt;T_{(x,y)}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;1&amp;amp;0&amp;amp;t_x\\&lt;br&gt;0&amp;amp;1&amp;amp;t_y\\&lt;br&gt;0&amp;amp;0&amp;amp;1&lt;br&gt;\end{pmatrix} \times&lt;br&gt;\begin{pmatrix}&lt;br&gt;x\\y\\1&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-178" y="1364" width="679" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-44" value="$$&lt;br&gt;M_{(x,y)}=&lt;br&gt;\begin{pmatrix}&lt;br&gt;a&amp;amp;c&amp;amp;t_x\\&lt;br&gt;b&amp;amp;d&amp;amp;t_y\\&lt;br&gt;0&amp;amp;0&amp;amp;1&lt;br&gt;\end{pmatrix} \times&lt;br&gt;\begin{pmatrix}&lt;br&gt;x\\y\\1&lt;br&gt;\end{pmatrix}&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="539" y="1364" width="679" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-45" value="$$\vec a \cdot \vec b = \lvert a \rvert * \lvert b \rvert * cos\theta$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-69" y="1590" width="378" height="103" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-46" value="$$&lt;br&gt;\begin{pmatrix}a_x\\a_y\end{pmatrix} \cdot&lt;br&gt;\begin{pmatrix}b_x\\b_y\end{pmatrix} =&amp;nbsp;&lt;br&gt;a_x * b_x + a_y * b_y&lt;br&gt;$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="433" y="1522" width="670" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-47" value="$$Ax + By + C = 0$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="115" y="1800" width="424" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-48" value="$$Ax + By + D = 0$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="115" y="1860" width="424" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-49" value="$$\left(\right)$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-340" y="1720" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-50" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=30;fontColor=#000000;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1800" width="30" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
