@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-01-28T03:54:52.528Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" etag="2QoD54XCw7xUoY_ISU5I" version="16.4.5" type="github">
+<mxfile host="app.diagrams.net" modified="2022-01-28T06:24:35.996Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" etag="jQQiLbWUQEMyC_5a-yEe" version="16.4.5" type="github">
   <diagram id="vk0mdWNgcAM2v0MkseZO" name="Page-1">
     <mxGraphModel dx="2226" dy="1226" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
       <root>
@@ -98,16 +98,19 @@
           <mxGeometry x="433" y="1522" width="670" height="225" as="geometry" />
         </mxCell>
         <mxCell id="ynwGwAjY9VG2_DhMksf5-47" value="$$Ax + By + C = 0$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="115" y="1800" width="424" height="40" as="geometry" />
+          <mxGeometry x="46" y="1700" width="424" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ynwGwAjY9VG2_DhMksf5-48" value="$$Ax + By + D = 0$$" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="115" y="1860" width="424" height="40" as="geometry" />
+          <mxGeometry x="46" y="1760" width="424" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ynwGwAjY9VG2_DhMksf5-49" value="$$\left(\right)$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="-340" y="1720" width="210" height="140" as="geometry" />
+          <mxGeometry x="-257" y="1656" width="210" height="140" as="geometry" />
         </mxCell>
         <mxCell id="ynwGwAjY9VG2_DhMksf5-50" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=30;fontColor=#000000;strokeWidth=3;" vertex="1" parent="1">
-          <mxGeometry x="70" y="1800" width="30" height="100" as="geometry" />
+          <mxGeometry x="1" y="1700" width="30" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ynwGwAjY9VG2_DhMksf5-54" value="$$ M = {T&#39;}_{xyz} \times {R&#39;}_x \times {R&#39;}_y \times R_{\theta} \times R_y \times R_x \times T_{xyz}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-81" y="1912" width="874" height="175" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
